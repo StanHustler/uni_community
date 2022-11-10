@@ -1,8 +1,8 @@
 <template>
-	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}111</text>
+	<view class="content" >
+	
+		<view class="animated" hover-class="pulse">
+			111
 		</view>
 	</view>
 </template>
