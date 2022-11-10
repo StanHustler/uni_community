@@ -1,6 +1,6 @@
 <template>
 	<view class="content" >
-	
+		index
 		<view class="animated" hover-class="pulse">
 			111
 		</view>
