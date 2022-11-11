@@ -5,7 +5,7 @@
 			<view class="flex align-center">
 				<!-- 头像 -->
 				<image class="rounded-circle mr-2" 
-				:src="item.userpic" 
+				:src="item.userpic" @click="openSpace"
 				style="width: 65rpx;height: 65rpx;" 
 				lazy-load></image>
 				<!-- 昵称发布时间 -->
@@ -20,30 +20,40 @@
 				</view>
 			</view>
 			<!-- 按钮 -->
-			<view class="flex align-center justify-center rounded bg-main text-white" style="width: 90rpx;height: 50rpx;">
+			<view @click="follow" v-if="!item.isFollow"
+			class="flex align-center justify-center rounded bg-main text-white animated faster" 
+			style="width: 90rpx;height: 50rpx;"
+			hover-class="jello">
 				关注
 			</view>
 		</view>
 		<!-- 标题 -->
-		<view class="font-md my-1">{{item.title}}</view>
+		<view class="font-md my-1" @click="openDetail">{{item.title}}</view>
 		<!-- 图片 -->
-		<image :src="item.titlepic" 
-		style="height: 350rpx;width: 100%" class="rounded w-100" mode="widthFix"></image>
+		<image v-if="item.titlepic" :src="item.titlepic" @click="openDetail" 
+		style="height: 350rpx;width: 100%;" class="rounded"></image>
 		<!-- 图标按钮 -->
 		<view class="flex align-center">
-			<view class="flex align-center justify-center flex-1">
+			<view class="flex align-center justify-center flex-1 animated faster"
+			hover-class="jello" @click="doSupport(1)"
+			:class="item.support.type==1 ? 'text-main':'' ">
 				<text class="iconfont icon-dianzan2 mr-2"></text>
 				<text>{{item.support.support_count}}</text>
 			</view>
-			<view class="flex align-center justify-center flex-1">
+			<view class="flex align-center justify-center flex-1 animated faster"
+			hover-class="jello" @click="doSupport(0)"
+			:class="item.support.type==0 ? 'text-main':''"
+			>
 				<text class="iconfont icon-cai mr-2"></text>
 				<text>{{item.support.unsupport_count}}</text>
 			</view>
-			<view class="flex align-center justify-center flex-1">
+			<view class="flex align-center justify-center flex-1 animated faster"
+			hover-class="jello" @click="openDetail">
 				<text class="iconfont icon-pinglun2 mr-2"></text>
 				<text>{{item.comment_count}}</text>
 			</view>
-			<view class="flex align-center justify-center flex-1">
+			<view class="flex align-center justify-center flex-1 animated faster"
+			hover-class="jello" @click="openDetail">
 				<text class="iconfont icon-fenxiang mr-2"></text>
 				<text>{{item.share_num}}</text>
 			</view>
@@ -56,6 +66,29 @@
 		props: {
 			item: Object,
 			index:Number
+		},
+		methods: {
+			// 打开个人空间
+			openSpace() {
+				console.log('打开个人空间');
+			},
+			// 关注
+			follow(){
+				// 通知父组件
+				this.$emit('follow',this.index);
+				uni.showToast({title:"关注成功"})
+			},
+			// 进入详情页
+			openDetail(){
+				console.log('进入详情页');
+			},
+			// 顶踩操作
+			doSupport(t){
+				this.$emit("doSupport",{
+					index:this.index,
+					type:t
+				})
+			}
 		},
 	}
 </script>

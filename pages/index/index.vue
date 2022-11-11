@@ -2,7 +2,7 @@
 	<view>
 		
 		<block v-for="(item,index) in posts">
-			<post :item="item" :index="index"></post>
+			<post :item="item" :index="index" @follow="follow" @doSupport="doSupport"></post>
 			<divider></divider>
 		</block>
 					
@@ -29,8 +29,8 @@
 						title:"我是标题",
 						titlepic:"/static/demo/datapic/12.jpg",
 						support:{
-							type:"support",
-							support_count:1,
+							type:0,
+							support_count:2,
 							unsupport_count:2
 						},
 						comment_count:2,
@@ -44,7 +44,7 @@
 						title:"我是标题",
 						titlepic:"/static/demo/datapic/16.jpg",
 						support:{
-							type:"support",
+							type:1,
 							support_count:1,
 							unsupport_count:2
 						},
@@ -55,10 +55,24 @@
 			}
 		},
 		onLoad() {
-
 		},
 		methods: {
-
+			follow(e){
+				this.posts[e].isFollow= true;
+			},
+			doSupport(e){
+				let t = this.posts[e.index].support
+				if (e.type != t.type){
+					if (t.type != null){
+						t.type==1 ? t.support_count-- : t.unsupport_count--;
+					}
+					t.type = e.type
+					t.type==1 ? t.support_count++ : t.unsupport_count++;
+				}else{
+					t.type==1?t.support_count-- : t.unsupport_count--;
+					t.type=null;
+				}
+			}
 		}
 	}
 </script>
