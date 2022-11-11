@@ -3,6 +3,7 @@
 		
 		<block v-for="(item,index) in posts">
 			<post :item="item" :index="index"></post>
+			<divider></divider>
 		</block>
 					
 	</view>
@@ -10,10 +11,12 @@
 
 <script>
 	import post from "@/components/post.vue"
+	import divider from "@/components/divider.vue"
 	
 	export default {
 		components:{
-			post
+			post,
+			divider
 		},
 		data() {
 			return {
@@ -22,7 +25,7 @@
 						username:"qq",
 						userpic:"/static/def.png",
 						newstime:"2077-01-01",
-						isFollow:false,
+						isFollow:true,
 						title:"我是标题",
 						titlepic:"/static/demo/datapic/12.jpg",
 						support:{
