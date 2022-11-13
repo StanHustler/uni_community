@@ -1,11 +1,28 @@
 <template>
 	<view>
+		<scroll-view 
+			class="scroll-row border-bottom border-light-secondary"
+			scroll-x
+			scroll-with-animation
+			>
+			
+			<view 
+				v-for="(item,index) in tabBars" :key="index" 
+				class="scroll-row-item px-3 py-2 font-md"
+				:class="tabIndex == index?'text-main font-lg font-weight-bold':''"
+				:id="'tab'+index"
+				@click="changeTab(index)"
+				>
+				{{item.name}}
+			</view>
+			
+		</scroll-view>
 		
 		<block v-for="(item,index) in posts">
 			<post :item="item" :index="index" @follow="follow" @doSupport="doSupport"></post>
 			<divider></divider>
 		</block>
-					
+		
 	</view>
 </template>
 
@@ -20,6 +37,14 @@
 		},
 		data() {
 			return {
+				tabIndex:0,
+				tabBars: [
+					{ name: '推荐1', },
+					{ name: '推荐2', },
+					{ name: '推荐3', },
+					{ name: '推荐4', },
+					{ name: '推荐5', },
+				],
 				posts: [
 					{
 						username:"qq",
@@ -54,9 +79,22 @@
 				]
 			}
 		},
+		
+		onNavigationBarSearchInputClicked() {
+			uni.navigateTo({
+				url: '../search/search',
+			});
+		},
 		onLoad() {
 		},
 		methods: {
+			changeTab(index){
+				if (this.tabIndex == index) {
+					return;
+				}
+				this.tabIndex = index
+				this.scrollInto = 'tab'+index
+			},
 			follow(e){
 				this.posts[e].isFollow= true;
 			},

@@ -4,17 +4,11 @@
 		<view class="flex align-center justify-between">
 			<view class="flex align-center">
 				<!-- 头像 -->
-				<image class="rounded-circle mr-2" 
-				:src="item.userpic" @click="openSpace"
-				style="width: 65rpx;height: 65rpx;" 
-				lazy-load></image>
+				<image id="avatar" class="rounded-circle mr-2" :src="item.userpic" @click="openSpace" lazy-load />
 				<!-- 昵称发布时间 -->
 				<view>
-					<view class="font" style="line-height: 1.5;">
-						{{item.username}}
-					</view>
-					<text class="font-sm text-light-muted" 
-					style="line-height: 1.5;">
+					<view id="username" class="font"> {{item.username}} </view>
+					<text class="font-sm text-light-muted" style="line-height: 1.5;">
 						{{item.newstime}}
 					</text>
 				</view>
@@ -94,4 +88,11 @@
 </script>
 
 <style>
+#avatar {
+	width: 65rpx;
+	height: 65rpx;
+}
+#username {
+	line-height: 1.5;
+}
 </style>
